@@ -21,10 +21,10 @@ No cadastro de cargo têm apenas os campos Código, Descrição listando que foi
 Nesta aplicação têm os registros de todos os cargos da empresa e têm inputtext com um porcentual de aumento e um botão 'Calcular' para incluir o aumento do funcionário ao selecionar DataTable com os cargos onde têm todos os registros de cargos cadastrados com o cargo selecionado, onde o botão 'Calcular' mostrará na tela todos os funcionários listados exibindo um DataTable com o Novo salário. 
 
 -Tecnologias usadas para este desafio: 
-JavaEE
-Tomcat 8
-JPA/HIBERNTE COM BANCO HSQLDB
-CDI
+JavaEE,
+Tomcat 8,
+JPA/HIBERNTE COM BANCO HSQLDB,
+CDI,
 JSF COM PRIMEFACES
 
 
