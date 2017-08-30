@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+		    <f:viewParam name="cargodesc" value="#{CargoBean.descricao}" />
+		    <f:viewParam name="cargocod" value="#{produtoBean.codigo}" />
+		    
+			<f:event listener="#{cadastroBean.carregarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+	   <h:form id="frmFabCad"></h:form>
+		  <p:toolbar>
+				<f:facet name="left">
+					<h:outputText value="Cadastro" />
+				</f:facet>
+			</p:toolbar>
+
+			<h:panelGrid id="cadDados" columns="2">
+				<p:outputLabel value="Código" />
+				<p:inputText size="10" readonly="true"
+				     value="#{cadastroBean.Cadastro.codigo}" />
+				     
+			<p:outputLabel value="Descrição:" />
+			<p:inputText maxlength="50" size="30"
+			    value="#{produtoBean.produtoCadastro.descricao}"
+			    readonly="#{produtoBean.acao == 'Excluir'}" >
+			    <f:validateBean />
+			    </p:inputText>
+			    
+			  
+			    <p:outputLabel value="Cargo:" />
+			    <p:selectOneMenu value="#{CadastroBean.Cadastro.cargo}"
+			      converter="fabricanteConverter">
+			        <f:selectItem itemValue="" itemLabel="Selecione um Cargo" />
+			        <f:selectItens value="#{produtoBean.listaFabricantes}" var="cargo" 
+			        itemLabel="#{fabricante}" itemLabel="#{cargo.descricao}" />
+			        <f:validateBean />
+			        </p:selectOneMenu>
+			    </h:panelGrid>     
+			       
+		        <h:panelGrid  columns="5">
+			        <p:inputText size="20" value="#{CadastroCargo.codigo}"
+			            readonly="#{CadastroBean.acao == 'Novo'}">
+			            <f:validateBean />
+			        </p:inputText>
+				    </h:panelGrid> 
+				    
+				    <h:commandButton value="Salvar"
+				      actionListener="#{produtoBean.salvar}"
+				      update="frmFunCad:pnlCadDados"
+				      rendered="#{cadastroBean.codigo == 'Novo'}" />
+				      
+				    
+
+				<f:facet name="footer">
+					<p:button value="Novo" outcome="/META-INF/CadastroCargo.xhtml">
+					     <f:param name="fabacao" value="Novo" />
+					</p:button>
+				</f:facet>
+
+				<p:column headerText="Código">
+					<h:outputText value="#{fabricante.codigo}" />
+				</p:column>
+
+				<p:column headerText="Descrição" filterBy="#{funcionario.descrição}"
+				    sortBy="#{funcionario.descrição}">
+					<h:outputText value="#{funcionario.descricao}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:button value="Excluir" outcome="/META-INF/CadastroCargo.xhtml">
+					<f:param name="cadcod" value="Excluir" />
+					<f:param name="caddesc" value="#{Cadastro.codigo}" />
+					</p:button>
+
+					<p:button value="Editar" outcome="/pages/CadastroFuncionario.xhtml">
+					<f:param name="funcod" value="Editar" />
+					<f:param name="fundesc" value="#{funcionario.codigo}" />
+					</p:button>
+                 </p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
